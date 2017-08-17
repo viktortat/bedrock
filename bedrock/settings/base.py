@@ -1186,6 +1186,10 @@ SEND_TO_DEVICE_COUNTRIES = config('SEND_TO_DEVICE_COUNTRIES', default='US', cast
 RNA_SYNC_URL = config('RNA_SYNC_URL',
                       default='https://nucleus.mozilla.org/rna/sync/')
 
+RELEASE_NOTES_PATH = config('RELEASE_NOTES_PATH', default=path('release_notes'))
+RELEASE_NOTES_REPO = config('RELEASE_NOTES_REPO', default='https://github.com/mozilla/release-notes.git')
+RELEASE_NOTES_BRANCH = config('RELEASE_NOTES_BRANCH', default='master')
+
 MOFO_SECURITY_ADVISORIES_PATH = config('MOFO_SECURITY_ADVISORIES_PATH',
                                        default=path('mofo_security_advisories'))
 MOFO_SECURITY_ADVISORIES_REPO = config('MOFO_SECURITY_ADVISORIES_REPO',
