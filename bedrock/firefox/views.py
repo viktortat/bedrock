@@ -394,7 +394,7 @@ class FirstrunView(l10n_utils.LangFilesMixin, TemplateView):
             template = 'firefox/dev-firstrun.html'
         elif show_40_firstrun(version):
             if locale == 'en-US' and exp in ['a', 'b']:
-                template = 'firefox/firstrun/index-{0}.html'.format(exp)
+                template = 'firefox/firstrun/membership-{0}.html'.format(exp)
             else:
                 template = 'firefox/firstrun/index.html'
         elif show_38_0_5_firstrun(version):
