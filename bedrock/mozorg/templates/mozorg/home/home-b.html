@@ -1,0 +1,110 @@
+{# This Source Code Form is subject to the terms of the Mozilla Public
+ # License, v. 2.0. If a copy of the MPL was not distributed with this
+ # file, You can obtain one at http://mozilla.org/MPL/2.0/. -#}
+
+{% from "macros.html" import google_play_button with context %}
+
+{% extends "mozorg/home/home.html" %}
+
+{% add_lang_files "mozorg/home/index-2016" "firefox/features/index" "firefox/sync" "firefox/whatsnew_38" "firefox/whatsnew_50" %}
+
+{% block page_css %}
+  {% stylesheet 'home-b' %}
+{% endblock %}
+
+{% block intro %}
+<div class="content" id="intro-wrapper">
+  <div id="intro-mozilla">
+    {# original strings from home.html #}
+    <div class="intro-content">
+      <h2>
+        {# L10n: line break below for visual formatting only #}
+        {{ _('Internet for people, <br>not profit.') }}
+      </h2>
+      <h3>
+      {% trans %}
+        Hi. We’re Mozilla, the proudly non-profit champions of the Internet,
+        helping to keep it healthy, open and accessible to all.
+      {% endtrans %}
+      </h3>
+    </div>{#--/.intro-content--#}
+  </div>{#--/#intro-mozilla-_#}
+
+  <div id="intro-promo">
+    <div id="intro-promo-content-wrapper" class="state-default">
+      <div class="intro-content">
+        {# different promos based on browser/FxA state #}
+
+        <div class="show-not-fx show-default">
+          {# original strings from home.html #}
+          {% if l10n_has_tag('mozorg-home-fxcopy-unleash') %}
+            <h2>{{ _('Unleash your Internet') }}</h2>
+            <p>{{ _('Set the Web free and your mind will follow.') }}</p>
+          {% else %}
+            <h2>{{ _('Browse freely.') }}</h2>
+            <p>{{ _('Discover unlimited potential, endless possibility and a wide open Web.') }}</p>
+          {% endif %}
+
+          {{ download_firefox(dom_id='download-intro', button_color='button-arrow', download_location='primary cta') }}
+        </div>{#--/.show-default --#}
+
+        {# shown for Fx desktop signed out of sync, and Fx for Android & iOS #}
+        <div class="show-fx-signed-out show-fx-mobile">
+          {# lang file: firefox/sync #}
+          <h2>{{ _('Your web, how you like it, everywhere') }}</h2>
+
+          {# lang file: firefox/whatsnew_38 #}
+          <p>{{ _('With your Firefox Account you can sync your bookmarks, passwords, open tabs and more, and access them everywhere you use Firefox.') }}</p>
+
+          {# lang file: firefox/sync #}
+          {# for desktop users, link below is wired to open about:accounts #}
+          <a href="{{ url('firefox.features.sync') }}" class="button" id="fxa-sign-in">{{ _('Get started with Sync') }}</a>
+        </div>{#--/.show-fx-signed-out--#}
+
+        <div class="show-fx-signed-in">
+        {# en-* users get a link to Pocket (un-localized copy) #}
+        {% if LANG.startswith('en-') %}
+          <h2>Pocket for Firefox</h2>
+          <p>
+            Save articles, videos, pages and more for later.
+          </p>
+
+          <p><a href="https://getpocket.com/firefox/" rel="external" class="button">Get pocket</a></p>
+        {# non en-* users get mobile dl buttons (pre-localized copy) #}
+        {% else %}
+          {# lang file: firefox/features/index #}
+          <h2>{{ _('The speed you need. The privacy you trust.') }}</h2>
+
+          <p>
+            {# lang file: firefox/whatsnew_50 #}
+            {{ _('Download Firefox for your smartphone and tablet.') }}
+          </p>
+
+          <div id="fxmobile-download-buttons">
+            <ul>
+              <li class="android">
+                {{ google_play_button() }}
+              </li>
+              <li class="ios">
+                <a href="{{ firefox_ios_url('mozorg-homepage_prototype_b-button') }}" data-link-type="download" data-download-os="iOS">
+                  <img src="{{ l10n_img('firefox/ios/btn-app-store.svg') }}" alt="{{ _('Download on the App Store') }}" width="152" height="45">
+                </a>
+              </li>
+            </ul>
+            <p><a class="android-systems-link hidden" href="{{ firefox_url('android', 'all', 'release') }}">{{_('Systems &amp; Languages')}}</a></p>
+          </div> {# --/#fxmobile-download-buttons --#}
+        {% endif %}
+        </div>{#--/.show-fx-signed-in--#}
+
+      </div>{#--/.intro-content--#}
+    </div>{#--/#intro-promo-content-wrapper--#}
+  </div>{#--/#intro-promo--#}
+</div>{#--/#intro-wrapper--#}
+{% endblock %}
+
+{# firefox section is now in the intro #}
+{% block section_firefox %}{% endblock %}
+
+{% block js %}
+  {% javascript 'home-b' %}
+{% endblock %}

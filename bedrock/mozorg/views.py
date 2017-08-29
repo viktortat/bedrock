@@ -198,7 +198,14 @@ class Robots(TemplateView):
 
 
 def home(request):
-    return l10n_utils.render(request, 'mozorg/home/home.html')
+    locale = l10n_utils.get_locale(request)
+    v = request.GET.get('v', None)
+    template = 'mozorg/home/home.html'
+
+    if (v == 'b'):
+        template = 'mozorg/home/home-b.html'
+
+    return l10n_utils.render(request, template)
 
 
 NAMESPACES = {
