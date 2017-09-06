@@ -20,6 +20,7 @@ from commonware.decorators import xframe_allow
 
 from bedrock.base.templatetags.helpers import static
 from bedrock.base.urlresolvers import reverse
+from bedrock.base.waffle import switch
 from bedrock.mozorg.credits import CreditsFile
 from bedrock.mozorg.forms import (WebToLeadForm)
 from bedrock.mozorg.forums import ForumsFile
@@ -198,12 +199,10 @@ class Robots(TemplateView):
 
 
 def home(request):
-    locale = l10n_utils.get_locale(request)
-    v = request.GET.get('v', None)
-    template = 'mozorg/home/home.html'
-
-    if (v == 'b'):
+    if switch('experiment-home-q32017'):
         template = 'mozorg/home/home-b.html'
+    else:
+        template = 'mozorg/home/home.html'
 
     return l10n_utils.render(request, template)
 

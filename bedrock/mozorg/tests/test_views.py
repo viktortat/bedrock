@@ -14,7 +14,7 @@ from django.test.client import RequestFactory
 from django.test.utils import override_settings
 
 from bedrock.base.urlresolvers import reverse
-from mock import ANY, patch
+from mock import ANY, Mock, patch
 from nose.tools import eq_, ok_
 
 from bedrock.mozorg.tests import TestCase
@@ -374,19 +374,16 @@ class TestTechnology(TestCase):
         eq_(view.get_template_names(), ['mozorg/technology.html'])
 
 
-# tests for Q3 2017 homepage experiment
-
 @patch('bedrock.mozorg.views.l10n_utils.render')
 class TestHome(TestCase):
-    def test_home_control(self, render_mock):
+    @patch('bedrock.mozorg.views.switch', Mock(return_value=False))
+    def test_home(self, render_mock):
         request = RequestFactory().get('/')
-        request.locale = 'en-US'
-        view = views.home(request)
+        views.home(request)
         render_mock.assert_called_once_with(request, 'mozorg/home/home.html')
 
-    def test_home_variation(self, render_mock):
-        request = RequestFactory().get('/?v=b')
-        request.locale = 'en-US'
-        view = views.home(request)
+    @patch('bedrock.mozorg.views.switch', Mock(return_value=True))
+    def test_home_experiment(self, render_mock):
+        request = RequestFactory().get('/')
+        views.home(request)
         render_mock.assert_called_once_with(request, 'mozorg/home/home-b.html')
-
