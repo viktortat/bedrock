@@ -4,7 +4,6 @@
 
 @import '../../pebbles/includes/lib';
 @import '../../hubs/buttons';
-@import '../../hubs/masthead';
 
 body {
     @include open-sans;
@@ -76,11 +75,11 @@ main {
         margin-bottom: 30px;
 
         @media #{$mq-tablet} {
-            @include font-size(48px);
+            @include font-size(56px);
         }
 
         @media #{$mq-desktop-wide} {
-            @include font-size(56px);
+            @include font-size(64px);
         }
     }
 
@@ -105,22 +104,6 @@ main {
     @media #{$mq-tablet} {
         background-image: url('/media/img/home/2016/b/hero-bg-desktop.jpg');
         background-position: center center;
-    }
-}
-
-@media #{$mq-desktop} {
-    [lang^='en'] {
-        #intro h2 {
-            @include font-size(56px);
-        }
-    }
-}
-
-@media #{$mq-desktop-wide} {
-    [lang^='en'] {
-        #intro h2 {
-            @include font-size(64px);
-        }
     }
 }
 
@@ -184,16 +167,6 @@ main {
                 right: 0;
                 width: 80px;
             }
-        }
-    }
-}
-
-@media #{$mq-phone-wide} {
-    #fxmobile-download-buttons ul {
-        display: flex;
-
-        li:first-child {
-            margin-right: 20px;
         }
     }
 }
@@ -406,9 +379,9 @@ main {
     }
 
     ul {
-        position: relative;
-        padding: 40px 0;
         @include clearfix;
+        padding: 40px 0;
+        position: relative;
 
         li {
             margin: 0 auto 30px;
@@ -527,7 +500,7 @@ main {
             color: #000;
             font-weight: normal;
             line-height: 1.5;
-            text-align: start;
+            text-align: left;
         }
     }
 
@@ -565,7 +538,7 @@ main {
 }
 
 #home #newsletter-subscribe h3 {
-    text-align: start;
+    text-align: left;
 }
 
 .js #form-details {
@@ -588,7 +561,7 @@ main {
 
             h3,
             h4 {
-                text-align: start;
+                text-align: left;
             }
         }
 
@@ -598,31 +571,6 @@ main {
             float: left;
             margin: 0;
             width: 100%;
-        }
-    }
-}
-
-// RTL tweaks
-html[dir="rtl"] {
-    .masthead-nav-main .nav-main-menu a:hover {
-        border-left: none;
-    }
-
-    .section-externals h3:before {
-        left: auto;
-        right: 0;
-    }
-
-    #newsletter-subscribe.section-newsletter .form-title {
-        background-position: right top;
-        padding-left: 0;
-        padding-right: 140px;
-    }
-
-    @media #{$mq-phone-wide} {
-        #fxmobile-download-buttons ul li:first-child {
-            margin-left: 20px;
-            margin-right: 0;
         }
     }
 }

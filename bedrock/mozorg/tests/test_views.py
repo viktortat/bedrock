@@ -376,14 +376,30 @@ class TestTechnology(TestCase):
 
 @patch('bedrock.mozorg.views.l10n_utils.render')
 class TestHome(TestCase):
-    @patch('bedrock.mozorg.views.switch', Mock(return_value=False))
-    def test_home(self, render_mock):
+    @patch('bedrock.mozorg.views.switch', Mock(return_value=True))
+    def test_home_enUS_experiment_enabled(self, render_mock):
         request = RequestFactory().get('/')
+        request.locale = 'en-US'
+        views.home(request)
+        render_mock.assert_called_once_with(request, 'mozorg/home/home-b.html')
+
+    @patch('bedrock.mozorg.views.switch', Mock(return_value=False))
+    def test_home_enUS_experiment_disabled(self, render_mock):
+        request = RequestFactory().get('/')
+        request.locale = 'en-US'
         views.home(request)
         render_mock.assert_called_once_with(request, 'mozorg/home/home.html')
 
     @patch('bedrock.mozorg.views.switch', Mock(return_value=True))
-    def test_home_experiment(self, render_mock):
+    def test_home_non_enUS_experiment_enabled(self, render_mock):
         request = RequestFactory().get('/')
+        request.locale = 'fr'
         views.home(request)
-        render_mock.assert_called_once_with(request, 'mozorg/home/home-b.html')
+        render_mock.assert_called_once_with(request, 'mozorg/home/home.html')
+
+    @patch('bedrock.mozorg.views.switch', Mock(return_value=False))
+    def test_home_non_enUS_experiment_disabled(self, render_mock):
+        request = RequestFactory().get('/')
+        request.locale = 'fr'
+        views.home(request)
+        render_mock.assert_called_once_with(request, 'mozorg/home/home.html')

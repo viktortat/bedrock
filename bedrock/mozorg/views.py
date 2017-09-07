@@ -199,7 +199,9 @@ class Robots(TemplateView):
 
 
 def home(request):
-    if switch('experiment-home-q32017'):
+    locale = l10n_utils.get_locale(request)
+
+    if locale == 'en-US' and switch('experiment-home-q32017'):
         template = 'mozorg/home/home-b.html'
     else:
         template = 'mozorg/home/home.html'
