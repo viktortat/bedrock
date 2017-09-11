@@ -29,12 +29,20 @@
         e.preventDefault();
 
         HomePageB.dataLayer.push({
-            'event': 'sync-click',
-            'browser': HomePageB.state
+            'event': 'in-page-interaction',
+            'eAction': 'Button Click',
+            'eLabel': 'Sync Promo'
         });
 
-        // TODO: do we need to set custom utm params here?
         Mozilla.UITour.showFirefoxAccounts(HomePageB.params.utmParamsFxA());
+    };
+
+    HomePageB.ctaPocketClick = function() {
+        HomePageB.dataLayer.push({
+            'event': 'in-page-interaction',
+            'eAction': 'Button Click',
+            'eLabel': 'Pocket Promo'
+        });
     };
 
     HomePageB.init = function(config) {
@@ -42,7 +50,8 @@
         HomePageB.fxVersion = HomePageB.client.FirefoxMajorVersion;
         HomePageB.params = new window._SearchParams();
 
-        HomePageB.ctaSync = document.getElementById('fxa-sign-in');
+        HomePageB.ctaSync;
+        HomePageB.ctaPocket;
 
         /* This shows five different content variations, depending on the browser/state
          * 1. Not Firefox (any other browser) <-- default
@@ -77,10 +86,13 @@
                     // Query if the UITour API is working before we use the API
                     Mozilla.UITour.getConfiguration('sync', function (config) {
 
-                        // Variation #2: Firefox 31+ signed IN to Sync
+                        // Variation #2: Firefox 31+ signed IN to Sync (shows Pocket promo)
                         if (config.setup) {
                             HomePageB.setBodyClass('state-fx-signed-in');
                             HomePageB.state = 'Firefox 31 or Higher: Signed-In';
+
+                            HomePageB.ctaPocket = document.getElementById('pocket-cta');
+                            HomePageB.ctaPocket.addEventListener('click', HomePageB.ctaPocketClick);
 
                         // Variation #3: Firefox 31+ signed OUT of Sync
                         } else {
@@ -88,8 +100,12 @@
                             HomePageB.state = 'Firefox 31 or Higher: Signed-Out';
 
                             // Sync sign in flow button only visible for Fx31+ signed OUT of Sync
+                            HomePageB.ctaSync = document.getElementById('fxa-sign-in');
                             HomePageB.ctaSync.addEventListener('click', HomePageB.ctaSyncClick);
                         }
+
+                        // Note - the above results in Nightly/Beta users having no way to download
+                        // the release version on the home page. Should re-assess later.
 
                         // Call GA tracking here to ensure it waits for the
                         // getConfiguration async call

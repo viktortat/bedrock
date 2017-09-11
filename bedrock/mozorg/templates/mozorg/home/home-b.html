@@ -47,12 +47,13 @@
         </div>{#--/.show-fx-signed-out--#}
 
         <div class="show-fx-signed-in">
-          <h2>Pocket for Firefox</h2>
+          {# L10n: Strings in this <div> will likely never be localized. Just wrapping for consistency. #}
+          <h2>{{ _('Pocket for Firefox') }}</h2>
           <p>
-            Save articles, videos, pages and more for later.
+            {{ _('Save articles, videos, pages and more for later.') }}
           </p>
 
-          <p><a href="https://getpocket.com/firefox/" rel="external noopener noreferrer" class="button">Get pocket</a></p>
+          <p><a id="pocket-cta" href="https://getpocket.com/firefox/" rel="external" class="button">{{ _('Get pocket') }}</a></p>
         </div>{#--/.show-fx-signed-in--#}
 
       </div>{#--/.intro-content--#}

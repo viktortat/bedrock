@@ -1081,6 +1081,8 @@ PIPELINE_JS = {
             'js/base/base-page-init.js',
             'js/base/core-datalayer.js',
             'js/base/core-datalayer-init.js',
+            # primarily needed by stub attribution script (+ a couple others)
+            'js/base/search-params.js',
         ),
         'output_filename': 'js/common-bundle.js',
     },
@@ -1692,7 +1694,6 @@ PIPELINE_JS = {
     },
     'stub-attribution': {
         'source_filenames': (
-            'js/base/search-params.js',
             'js/base/stub-attribution.js',
             'js/base/stub-attribution-init.js',
         ),
