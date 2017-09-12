@@ -675,3 +675,14 @@ class FirefoxHubView(BlogPostsView):
     blog_slugs = 'firefox'
     blog_tags = ['home']
     template_name = 'firefox/hub/home.html'
+
+
+def FirefoxProductDeveloperView(request):
+    locale = l10n_utils.get_locale(request)
+
+    if lang_file_is_active('firefox/products/developer-quantum', locale):
+        template = 'firefox/products/developer-quantum.html'
+    else:
+        template = 'firefox/products/developer.html'
+
+    return l10n_utils.render(request, template)
