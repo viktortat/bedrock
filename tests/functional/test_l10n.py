@@ -9,6 +9,7 @@ import pytest
 from pages.home import HomePage
 
 
+@pytest.mark.skipif(reason='en-US homepage has no translations, so lang selector is not displayed')  # Q3 homepage test
 @pytest.mark.nondestructive
 def test_change_language(base_url, selenium):
     page = HomePage(selenium, base_url).open()
