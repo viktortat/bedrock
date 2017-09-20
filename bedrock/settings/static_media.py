@@ -1511,6 +1511,7 @@ PIPELINE_JS = {
     },
     'firefox_privacy': {
         'source_filenames': (
+            'js/base/uitour-lib.js',
             'js/privacy/firefox-privacy.js',
         ),
         'output_filename': 'js/firefox-privacy-bundle.js',

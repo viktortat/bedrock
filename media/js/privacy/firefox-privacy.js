@@ -7,6 +7,52 @@
     var topics = [];
 
     /**
+     * Adds the data choices widget to the first sub-section under
+     * "Firefox by default shares data to".
+     * @param {Object} section - The section to which the widget
+     * will be added
+     */
+    function addDataChoicesWidget(section) {
+        var container = document.createElement('div');
+        var copyContainer = document.createElement('p');
+        var button = document.createElement('button');
+
+        container.setAttribute('class', 'data-choices');
+
+        copyContainer.textContent = strings.dataset.choicesCopy;
+
+        button.textContent = strings.dataset.choicesButton;
+        button.setAttribute('id', 'choose');
+        button.setAttribute('type', 'button');
+
+        container.appendChild(copyContainer);
+        container.appendChild(button);
+
+        section.appendChild(container);
+    }
+
+    /**
+     * For each main section, this innjects a button to either,
+     * show all topics under the section, or collapse all.
+     */
+    function addMasterToggles() {
+        var text = strings.dataset.tabpanelOpenText;
+        var toggle = document.createElement('button');
+
+        toggle.classList.add('toggle');
+        toggle.setAttribute('type', 'button');
+        toggle.textContent = text;
+        toggle.dataset.isExpanded = false;
+
+        for (var i = 0, l = topicHeaders.length; i < l; i++) {
+            var currentHeading = topicHeaders[i].querySelector('header h2');
+
+            toggle.dataset.parentContainer = topicHeaders[i].id;
+            currentHeading.insertAdjacentHTML('beforeend', toggle.outerHTML);
+        }
+    }
+
+    /**
      * Collects all of the individual topics(sections) into an Array
      * for use in various other functions.
      */
@@ -28,27 +74,6 @@
     }
 
     /**
-     * For each main section, this innjects a button to either,
-     * show all topics under the section, or collapse all.
-     */
-    function injectMasterToggles() {
-        var text = strings.dataset.tabpanelOpenText;
-        var toggle = document.createElement('button');
-
-        toggle.classList.add('toggle');
-        toggle.setAttribute('type', 'button');
-        toggle.textContent = text;
-        toggle.dataset.isExpanded = false;
-
-        for (var i = 0, l = topicHeaders.length; i < l; i++) {
-            var currentHeading = topicHeaders[i].querySelector('header h2');
-
-            toggle.dataset.parentContainer = topicHeaders[i].id;
-            currentHeading.insertAdjacentHTML('beforeend', toggle.outerHTML);
-        }
-    }
-
-    /**
      * For each main section, push each section into the globally available
      * `topics` array.
      */
@@ -64,13 +89,16 @@
      * On load, expands the first topic of the first main section.
      */
     function showInitialTopic() {
-        var initialTopic = topicHeaders[0].querySelector('section > div');
-        var initialTopicHeading = topicHeaders[0].querySelector('h3');
+        var initialTopic = topicHeaders[0].querySelector('section');
+        var initialTopicContent = initialTopic.querySelector('div');
+        var initialTopicHeading = initialTopic.querySelector('h3');
 
-        initialTopic.classList.remove('hidden');
-        initialTopic.setAttribute('aria-hidden', false);
+        initialTopicContent.classList.remove('hidden');
+        initialTopicContent.setAttribute('aria-hidden', false);
 
         initialTopicHeading.classList.add('expanded');
+
+        addDataChoicesWidget(initialTopicContent);
     }
 
     /**
@@ -126,6 +154,16 @@
         if (event.target.classList.contains('toggle')) {
             toggleMainSectionTopics(event.target);
         }
+
+        // handle clicks on the data choices "Choose" button
+        if (event.target.id === 'choose') {
+            // if the uitour did not load, just return
+            if (Mozilla.UITour === undefined) {
+                return;
+            }
+
+            Mozilla.UITour.openPreferences('privacy-reports');
+        }
     });
 
     /* add a class to indicate that js is enabled. This will trigger
@@ -134,7 +172,7 @@
 
     collectAllTopics();
     hideAllTopicContent();
-    injectMasterToggles();
+    addMasterToggles();
 
     showInitialTopic();
 })();
