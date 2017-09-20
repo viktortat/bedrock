@@ -30,7 +30,7 @@ def process_is_public(is_public):
 FIELD_PROCESSORS = {
     'release_date': parse_date,
     'created': parse_datetime,
-    'updated': parse_datetime,
+    'modified': parse_datetime,
     'notes': process_notes,
     'is_public': process_is_public,
 }
@@ -58,8 +58,8 @@ class Note(RNModel):
     is_public = True
     fixed_in_release = None
     sort_num = None
-    updated = None
     created = None
+    modified = None
 
     def __unicode__(self):
         return self.note
@@ -79,8 +79,8 @@ class Release(RNModel):
     bug_list = None
     bug_search_url = None
     system_requirements = None
-    updated = None
     created = None
+    modified = None
     notes = None
 
     def __unicode__(self):

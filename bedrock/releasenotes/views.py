@@ -14,7 +14,7 @@ from bedrock.firefox.firefox_details import firefox_desktop, firefox_android, fi
 from bedrock.firefox.templatetags.helpers import android_builds, ios_builds
 from bedrock.thunderbird.details import thunderbird_desktop
 from bedrock.mozorg.templatetags.misc import releasenotes_url
-from bedrock.releasenotes.models import Release, get_release_or_404, get_releases_or_404
+from bedrock.releasenotes.models import get_release_or_404, get_releases_or_404
 
 SUPPORT_URLS = {
     'Firefox for Android': 'https://support.mozilla.org/products/mobile',
@@ -25,8 +25,7 @@ SUPPORT_URLS = {
 
 
 def release_notes_template(channel, product, version=None):
-    prefix = dict((c, c.lower()) for c in Release.CHANNELS)
-
+    channel = channel or 'release'
     if product == 'Firefox' and channel == 'Aurora' and version >= 35:
         return 'firefox/releases/dev-browser-notes.html'
 
@@ -35,7 +34,7 @@ def release_notes_template(channel, product, version=None):
         dir = 'thunderbird'
 
     return ('{dir}/releases/{channel}-notes.html'
-            .format(dir=dir, channel=prefix.get(channel, 'release')))
+            .format(dir=dir, channel=channel.lower()))
 
 
 def equivalent_release_url(release):
