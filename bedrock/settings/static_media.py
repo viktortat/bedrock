@@ -740,6 +740,12 @@ PIPELINE_CSS = {
         ),
         'output_filename': 'css/privacy-bundle.css',
     },
+    'firefox_privacy': {
+        'source_filenames': (
+            'css/privacy/firefox-privacy.scss',
+        ),
+        'output_filename': 'css/firefox-privacy-bundle.css',
+    },
     'fb_privacy': {
         'source_filenames': (
             'css/privacy/fb-privacy.less',
@@ -1502,6 +1508,12 @@ PIPELINE_JS = {
             'js/privacy/privacy.js',
         ),
         'output_filename': 'js/privacy-bundle.js',
+    },
+    'firefox_privacy': {
+        'source_filenames': (
+            'js/privacy/firefox-privacy.js',
+        ),
+        'output_filename': 'js/firefox-privacy-bundle.js',
     },
     'smarton': {
         'source_filenames': (

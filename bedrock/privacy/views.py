@@ -67,12 +67,17 @@ class PrivacyDocView(LegalDocView):
     def get_legal_doc(self):
         doc = super(PrivacyDocView, self).get_legal_doc()
         doc['content'] = process_legal_doc(doc['content'])
+        print doc
         return doc
 
 
 firefox_notices = PrivacyDocView.as_view(
     template_name='privacy/notices/firefox.html',
     legal_doc_name='firefox_privacy_notice')
+
+firefox_quantum_notices = PrivacyDocView.as_view(
+    template_name='privacy/notices/firefox-quantum.html',
+    legal_doc_name='firefox_quantum_privacy_notice')
 
 firefox_os_notices = PrivacyDocView.as_view(
     template_name='privacy/notices/firefox-os.html',

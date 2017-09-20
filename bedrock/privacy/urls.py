@@ -11,6 +11,7 @@ urlpatterns = (
     url(r'^/$', views.privacy, name='privacy'),
     page('/principles', 'privacy/principles.html'),
     url(r'^/firefox/$', views.firefox_notices, name='privacy.notices.firefox'),
+    url(r'^/firefox-quantum/$', views.firefox_quantum_notices, name='privacy.notices.firefox_quantum'),
     url(r'^/firefox-os/$', views.firefox_os_notices, name='privacy.notices.firefox-os'),
     url(r'^/firefox-cliqz/$', views.firefox_cliqz_notices, name='privacy.notices.firefox-cliqz'),
     url(r'^/firefox-cloud/$', views.firefox_cloud_notices, name='privacy.notices.firefox-cloud'),
