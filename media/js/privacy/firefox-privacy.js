@@ -58,8 +58,17 @@
      */
     function collectAllTopics() {
         for (var i = 0, l = topicHeaders.length; i < l; i++) {
-            setTopicsArray(topicHeaders[i]);
+            var nestedTopics = topicHeaders[i].querySelectorAll('section');
+            /* nestedTopics is a NodeList which is Array like but,
+            not a real array. We therefore need to coherce it into one. */
+            topics.push([].slice.call(nestedTopics));
         }
+
+        /* At this point `topics` is a two dimensional array.
+        The final step then is to flatten it. */
+        topics = topics.reduce(function(a, b) {
+            return a.concat(b);
+        });
     }
 
     /**
@@ -74,15 +83,13 @@
     }
 
     /**
-     * For each main section, push each section into the globally available
-     * `topics` array.
+     * Runs a set of functions on page load.
      */
-    function setTopicsArray(container) {
-        var sections = container.querySelectorAll('section');
-
-        for (var i = 0, l = sections.length; i < l; i++) {
-            topics.push(sections[i]);
-        }
+    function initPage() {
+        collectAllTopics();
+        hideAllTopicContent();
+        addMasterToggles();
+        showInitialTopic();
     }
 
     /**
@@ -170,9 +177,5 @@
     the appropriate styling to be applied */
     mainContent.classList.add('interactive-widget');
 
-    collectAllTopics();
-    hideAllTopicContent();
-    addMasterToggles();
-
-    showInitialTopic();
+    initPage();
 })();

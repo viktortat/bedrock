@@ -265,6 +265,7 @@ main.interactive-widget {
         button {
             display: block;
             background-color: $color-button-light;
+            margin: 10px auto;
             padding: 5px 10px;
             border: 1px solid $color-text-secondary;
             @include font-size(14px);
@@ -275,6 +276,7 @@ main.interactive-widget {
                 position: absolute;
                 top: 8px;
                 right: 10px;
+                margin: 0;
             }
         }
     }
