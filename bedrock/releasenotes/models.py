@@ -9,10 +9,19 @@ from django.http import Http404
 from django.utils.dateparse import parse_date, parse_datetime
 from django.utils.text import slugify
 
+import markdown
 from raven.contrib.django.raven_compat.models import client as sentry_client
 
 
 cache = caches['release-notes']
+markdowner = markdown.Markdown(
+    extensions=[
+        'tables', 'codehilite', 'fenced_code', 'toc', 'nl2br'
+    ])
+
+
+def process_markdown(value):
+    return markdowner.reset().convert(value)
 
 
 def process_notes(notes):
@@ -33,6 +42,9 @@ FIELD_PROCESSORS = {
     'modified': parse_datetime,
     'notes': process_notes,
     'is_public': process_is_public,
+    'note': process_markdown,
+    'text': process_markdown,
+    'system_requirements': process_markdown,
 }
 
 
@@ -61,9 +73,6 @@ class Note(RNModel):
     created = None
     modified = None
 
-    def __unicode__(self):
-        return self.note
-
 
 class Release(RNModel):
     CHANNELS = ['release', 'esr', 'beta', 'aurora', 'nightly']
@@ -82,9 +91,6 @@ class Release(RNModel):
     created = None
     modified = None
     notes = None
-
-    def __unicode__(self):
-        return self.title
 
     @property
     def major_version(self):

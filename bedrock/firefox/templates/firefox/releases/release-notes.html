@@ -121,7 +121,7 @@
           </div>
           <div class="description">
               <h2>{{ _('Version {version}, first offered to {channel} channel users on {date}')|f(channel=release.channel, date=release.release_date|l10n_format_date, version=release.version) }}</h2>
-              <p>{{ release.text|markdown|safe }}</p>
+              <p>{{ release.text|safe }}</p>
           </div>
           {% endblock %}
         </div>
@@ -333,7 +333,7 @@
 
 {% macro note_entry(note) %}
   <li id="note-{{ note.id }}">
-    {{ note.note|markdown|safe }}
+    {{ note.note|safe }}
     {% if release.channel == 'Nightly' and note.bug -%}
     <span class="bug-id"><a href="https://bugzilla.mozilla.org/show_bug.cgi?id={{ note.bug }}">{{ _('Bug %d')|format(note.bug) }}</a></span>
     {%- endif %}
