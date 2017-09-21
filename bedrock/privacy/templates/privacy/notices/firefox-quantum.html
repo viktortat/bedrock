@@ -30,7 +30,7 @@
 
 <header class="privacy-head">
   <div class="privacy-head-wrapper">
-    <h2 itemprop="name"><a href="{{ url('firefox') }}" data-link-name="Firefox">{{ header.select('h2 span[class="privacy-header-firefox"]')|join|safe }}</a>
+    <h2 itemprop="name">{{ header.select('h2 span[class="privacy-header-firefox"]')|join|safe }}
     {{ header.select('h2 span[class="privacy-header-policy"]')|join|safe }}</h2>
 
     <time datetime="{{ header.select('[datetime]')[0]['datetime'] }}" itemprop="dateModified">{{ header.select('[datetime]')[0].string }}</time>
@@ -39,8 +39,8 @@
 
 <section class="privacy-lead-in">
   <div class="content-girdle">
+    {{ lead_in.select('header')|join|safe }}
     <div class="optional-lead-in">
-      {{ lead_in.select('header')|join|safe }}
       {{ lead_in.select('div p:nth-of-type(1)')|join|safe }}
     </div>
     {{ lead_in.select('div p:nth-of-type(2)')|join|safe }}

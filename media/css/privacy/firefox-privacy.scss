@@ -27,19 +27,12 @@
 
 /* POLICY HEADER */
 .privacy-head {
-    padding: 10px;
-    text-align: center;
-    @include clearfix;
-
-    @media #{$mq-tablet} {
-        padding: 10px 15px;
-        text-align: left;
-    }
+    padding: $gutter-width;
+    text-align: left;
 
     @media #{$mq-desktop} {
         position: sticky;
         top: 0;
-        padding: $gutter-width;
         z-index: 2;
 
         .privacy-head-wrapper {
@@ -103,34 +96,30 @@
     }
 
     time {
-        display: block;
-        @include font-size(16px);
+        display: inline-block;
+        @include font-size(14px);
         font-weight: normal;
         font-style: italic;
 
         @media #{$mq-tablet} {
-            display: inline-block;
+            @include font-size(16px);
         }
     }
 }
 
 /* POLICY LEAD-IN */
 .privacy-lead-in {
-    padding: ($gutter-width * 2) 0 0;
-
-    @media #{$mq-desktop} {
-        padding: $gutter-width 0 0;
-    }
+    padding: $gutter-width 0 0;
 
     h2 {
-        @include font-size(22px);
-        font-weight: normal;
-        text-align: center;
+        margin-bottom: $gutter-width;
+        @include font-size(20px);
+        font-weight: 600;
+        text-align: left;
 
         @media #{$mq-tablet} {
-            margin-bottom: $gutter-width;
             @include font-size(26px);
-            text-align: left;
+            font-weight: normal;
         }
 
         @media #{$mq-desktop} {
@@ -156,8 +145,8 @@ main {
     width: 94%;
 
     @media #{$mq-desktop} {
-        width: 600px;
-        max-width: 600px;
+        width: 800px;
+        max-width: 800px;
     }
 
     h2 {
@@ -294,7 +283,7 @@ main.interactive-widget {
     width: 94%;
 
     @media #{$mq-desktop} {
-        width: 600px;
-        max-width: 600px;
+        width: 800px;
+        max-width: 800px;
     }
 }

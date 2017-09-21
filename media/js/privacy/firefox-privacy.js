@@ -93,7 +93,8 @@
     }
 
     /**
-     * On load, expands the first topic of the first main section.
+     * On load, expands the first topic of the first main section. This
+     * also calls `addDataChoicesWidget` if on Fx desktop.
      */
     function showInitialTopic() {
         var initialTopic = topicHeaders[0].querySelector('section');
@@ -105,7 +106,9 @@
 
         initialTopicHeading.classList.add('expanded');
 
-        addDataChoicesWidget(initialTopicContent);
+        if (Mozilla.Client.isFirefoxDesktop) {
+            addDataChoicesWidget(initialTopicContent);
+        }
     }
 
     /**
